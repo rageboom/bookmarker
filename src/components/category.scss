@@ -1,0 +1,26 @@
+.category {
+  & .list {
+    border-radius: 15px;
+    padding: 10px 20px;
+    background-color: var(--primary-default);
+    cursor: pointer;
+  }
+  & ul {
+    cursor: pointer;
+    list-style: none;
+    padding: 0;
+    & li {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      
+      & a {
+        display: flex;
+        gap: 10px;
+        padding-left: 10px;
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+    }
+  }
+}

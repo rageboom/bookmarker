@@ -1,0 +1,108 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--bg-primary-default);
+}
+
+.app {
+  & h2 {
+    margin: 0;
+  }
+}
+
+.root {
+  box-sizing: border-box;
+  min-width: 320px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 20px;
+  color: var(--text-primary);
+  & > header {
+    width: 100%;
+    height: 70px;
+    background-color: var(--bg-primary-default);
+    & > .searchBox {
+      width: 100%;
+      height: min-content;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      appearance: none;
+      & > i {
+        margin-left: 15px;
+        position: absolute;
+        color: white;
+      }
+      & > input {
+        appearance: none;
+        color: gray;
+        width: 80%;
+        height: 40px;
+        font-size: 14px;
+        text-transform: uppercase;
+        padding-left: 40px;
+        background-color: var(--primary-default);
+        border: 1px solid #25304a;
+        outline: none;
+        border-radius: 4px;
+        caret-color: #4263eb;
+      }
+      & > input::placeholder {
+        font-size: 14px;
+        font-weight: 500;
+        color: #3a3a3a;
+        text-transform: capitalize;
+      }
+      & > button {
+        color: white;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-default);
+        appearance: none;
+        border: none;
+        font-size: 20px;
+      }
+    }
+  }
+  & > .content {
+    min-height: calc(100vh - env(safe-area-inset-bottom) - 180px);
+    & .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      font-size: 1.2rem;
+      & > i:hover {
+        cursor: pointer;
+      }
+      & > i > .form-add {
+        position: absolute;
+        height: 0px;
+        border-radius: 20px;
+        background-color: var(--primary-default);
+        border: 1px solid #25304a;
+        z-index: 1;
+      }
+      & > i > .form-add.activate {
+        width: 100%;
+        height: 100px;
+        top: 40px;
+        right: 0;
+        // transform: translateX(0);
+        // transform-origin: top right;
+        transition: all 200ms;
+      }
+    }
+  }
+  & > .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: var(--bg-primary-default);
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.32);
+  }
+}
