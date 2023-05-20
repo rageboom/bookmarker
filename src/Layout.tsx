@@ -4,22 +4,19 @@ import Modal from "./components/modal";
 import Category from "./components/category";
 import { useRecoilState, RecoilState } from "recoil";
 import { boardState } from "./store/boardsState";
-import { useRef } from "react";
 import { categoryState } from "./store/categoryState";
 import { modalState } from "./store/modalState";
 import { useHideModal, useShowModal } from "./hooks/modalHook";
-import { useAddBoard } from "./hooks/boardHook";
+import AddBoardForm from "./components/addModalFrom";
 
 function Layout() {
   const [currentBoardID, setCurrentBoardID] = useState<string>("1");
-  const titleRef = useRef<HTMLInputElement>(null);
-  const descRef = useRef<HTMLInputElement>(null);
+ 
   const [modal] = useRecoilState(modalState);
   const [boards] = useRecoilState(boardState);
   const [categories] = useRecoilState(categoryState);
   const hideModal = useHideModal();
   const showModal = useShowModal();
-  const addBoard = useAddBoard();
   const currentBoardCategories = categories[currentBoardID];
   const handleBoardClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
@@ -29,42 +26,14 @@ function Layout() {
       setCurrentBoardID(targetId);
     }
   };
-  const handleModalOkClick = () => {
-    const title = titleRef.current?.value;
-    const desc = descRef.current?.value;
-
-    addBoard(title, desc);
-    hideModal();
-  };
-  const handleModalCloseClick = () => {
-    hideModal();
-  };
-  const addModalContent = (
-    <div>
-      <div>here is content</div>
-      <div>
-        <input
-          ref={titleRef}
-          type="text"
-          placeholder="보드 이름을 입력하세요."
-        ></input>
-        <input
-          ref={descRef}
-          type="text"
-          placeholder="보드를 설명해 주세요."
-        ></input>
-      </div>
-      <button onClick={handleModalOkClick}>ok</button>
-      <button onClick={handleModalCloseClick}>close</button>
-    </div>
-  );
+ 
 
   const handleAddClick = (e: React.MouseEvent) => {
     if (e.target !== e.currentTarget) return;
     if (modal.show) {
       hideModal();
     } else {
-      showModal("보드를 추가하세요.", addModalContent);
+      showModal("보드를 추가하세요.", <AddBoardForm></AddBoardForm>);
     }
   };
 
