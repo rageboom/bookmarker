@@ -2,16 +2,16 @@ import { useState } from "react";
 import Swiper from "./components/swiper";
 import Modal from "./components/modal";
 import Category from "./components/category";
-import { useRecoilState, RecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { boardState } from "./store/boardsState";
 import { categoryState } from "./store/categoryState";
 import { modalState } from "./store/modalState";
 import { useHideModal, useShowModal } from "./hooks/modalHook";
-import AddBoardForm from "./components/addModalFrom";
+import AddBoardForm from "./components/addModalForm";
 
 function Layout() {
   const [currentBoardID, setCurrentBoardID] = useState<string>("1");
- 
+
   const [modal] = useRecoilState(modalState);
   const [boards] = useRecoilState(boardState);
   const [categories] = useRecoilState(categoryState);
@@ -26,7 +26,6 @@ function Layout() {
       setCurrentBoardID(targetId);
     }
   };
- 
 
   const handleAddClick = (e: React.MouseEvent) => {
     if (e.target !== e.currentTarget) return;
