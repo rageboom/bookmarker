@@ -67,15 +67,15 @@ function Swiper({ children }: SwiperProps) {
   const startDragging = (clientX: number) => {
     startX.current = clientX;
     isDragStart.current = true;
-    document.ondragstart = () => false;
+    document.body.ondragstart = () => false;
   };
   const cleanup = () => {
     const type = eventType("move");
-    document[type] = null;
+    document.body[type] = null;
     isDragStart.current = false;
     const maxTransformX = containerWidth.current - wrapperWidth.current;
 
-    document.ondragstart = null;
+    document.body.ondragstart = null;
     if (currentX.current > 0) {
       setX(0);
     } else if (maxTransformX > currentX.current) {
@@ -92,15 +92,15 @@ function Swiper({ children }: SwiperProps) {
     e: React.MouseEvent<HTMLUListElement, MouseEvent>
   ) => {
     startDragging(e.clientX);
-    document[eventType("move") as MouseEventType] = handleMouseMove;
-    document[eventType("end") as MouseEventType] = handleMouseUp;
+    document.body[eventType("move") as MouseEventType] = handleMouseMove;
+    document.body[eventType("end") as MouseEventType] = handleMouseUp;
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLUListElement>) => {
     document.body.style.overflow = "hidden";
     startDragging(e.changedTouches[0].clientX);
-    document[eventType("move") as TouchEventType] = handleTouchMove;
-    document[eventType("end") as TouchEventType] = handleTouchEnd;
+    document.body[eventType("move") as TouchEventType] = handleTouchMove;
+    document.body[eventType("end") as TouchEventType] = handleTouchEnd;
   };
   const handleTouchEnd = (e: TouchEvent) => {
     document.body.style.removeProperty("overflow");
