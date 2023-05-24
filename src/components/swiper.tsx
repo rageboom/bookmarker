@@ -105,6 +105,7 @@ function Swiper({ children }: SwiperProps) {
     cleanup();
   };
   const handleTouchMove = (e: TouchEvent) => {
+    e.stopPropagation();
     transformX(e.changedTouches[0].clientX);
   };
   // const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
