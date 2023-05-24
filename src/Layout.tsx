@@ -28,7 +28,6 @@ function Layout() {
   };
 
   const handleAddClick = (e: React.MouseEvent) => {
-    if (e.target !== e.currentTarget) return;
     if (modal.show) {
       hideModal();
     } else {
@@ -39,17 +38,20 @@ function Layout() {
   return (
     <div className="root">
       <header>
-        <div className="searchBox">
-          <i className="fa-solid fa-book-bookmark"></i>
-          <input type="text" placeholder="북마크를 찾아보세요."></input>
-          <button className="fa-light fa-solid fa-search"></button>
+        <h2>Bookmarkers</h2>
+        <div className="search">
+          <button className="icon">
+            <i className="fa-light fa-solid fa-search"></i>
+          </button>
         </div>
       </header>
       <main className="content">
         <section className="bookmarks">
           <div className="header-container">
-            <h2>당신의 보드</h2>
-            <i className="fa-solid fa-add" onClick={handleAddClick}></i>
+            <h4>당신의 보드</h4>
+            <button className="icon" onClick={handleAddClick}>
+              <i className="fa-solid fa-add"></i>
+            </button>
           </div>
           <div className="boards-container">
             <Swiper>

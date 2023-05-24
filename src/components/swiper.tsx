@@ -10,7 +10,7 @@ function Swiper({ children }: SwiperProps) {
   const cIdx = useRef(1);
   const tl = children.length;
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const target = e.target as HTMLElement;
+    const target = e.currentTarget as HTMLElement;
     const direction = target.getAttribute("data-direction");
     const rectRef = ref.current;
 
@@ -51,16 +51,12 @@ function Swiper({ children }: SwiperProps) {
           {children}
         </ul>
       </div>
-      <button
-        className="prev fa-solid fa-arrow-left"
-        data-direction="prev"
-        onClick={handleClick}
-      ></button>
-      <button
-        className="next fa-solid fa-arrow-right"
-        data-direction="next"
-        onClick={handleClick}
-      ></button>
+      <button className="prev" data-direction="prev" onClick={handleClick}>
+        <i className="fa-solid fa-arrow-left"></i>
+      </button>
+      <button className="next" data-direction="next" onClick={handleClick}>
+        <i className="fa-solid fa-arrow-right"></i>
+      </button>
     </div>
   );
 }

@@ -1,4 +1,7 @@
 .category {
+  & .header {
+    padding: 10px 0;
+  }
   & .list {
     border-radius: 15px;
     padding: 10px 20px;
@@ -13,7 +16,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      
+
       & a {
         display: flex;
         gap: 10px;

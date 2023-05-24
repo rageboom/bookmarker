@@ -9,8 +9,7 @@ function Category({ categoryName, children }: CategoryProps) {
   return (
     <div className="category">
       <div className="header">
-        <h1>{categoryName}</h1>
-        <div></div>
+        <h4>{categoryName}</h4>
       </div>
       <div className="list">
         <ul>{children}</ul>
