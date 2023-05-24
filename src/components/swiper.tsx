@@ -46,6 +46,7 @@ function Swiper({ children }: SwiperProps) {
   const cIdx = useRef(1);
   const tl = children.length;
   const eventType = getEventString(isMobileDevice());
+  const rootEl = document.querySelector(".root") as HTMLElement;
 
   useEffect(() => {
     if (containerRef.current) {
@@ -67,15 +68,15 @@ function Swiper({ children }: SwiperProps) {
   const startDragging = (clientX: number) => {
     startX.current = clientX;
     isDragStart.current = true;
-    document.body.ondragstart = () => false;
+    rootEl.ondragstart = () => false;
   };
   const cleanup = () => {
     const type = eventType("move");
-    document.body[type] = null;
+    rootEl[type] = null;
     isDragStart.current = false;
     const maxTransformX = containerWidth.current - wrapperWidth.current;
 
-    document.body.ondragstart = null;
+    rootEl.ondragstart = null;
     if (currentX.current > 0) {
       setX(0);
     } else if (maxTransformX > currentX.current) {
@@ -92,22 +93,20 @@ function Swiper({ children }: SwiperProps) {
     e: React.MouseEvent<HTMLUListElement, MouseEvent>
   ) => {
     startDragging(e.clientX);
-    document.body[eventType("move") as MouseEventType] = handleMouseMove;
-    document.body[eventType("end") as MouseEventType] = handleMouseUp;
+
+    rootEl[eventType("move") as MouseEventType] = handleMouseMove;
+    rootEl[eventType("end") as MouseEventType] = handleMouseUp;
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLUListElement>) => {
-    document.body.style.overflow = "hidden";
     startDragging(e.changedTouches[0].clientX);
-    document.body[eventType("move") as TouchEventType] = handleTouchMove;
-    document.body[eventType("end") as TouchEventType] = handleTouchEnd;
+    rootEl[eventType("move") as TouchEventType] = handleTouchMove;
+    rootEl[eventType("end") as TouchEventType] = handleTouchEnd;
   };
   const handleTouchEnd = (e: TouchEvent) => {
-    document.body.style.removeProperty("overflow");
     cleanup();
   };
   const handleTouchMove = (e: TouchEvent) => {
-    e.preventDefault;
     transformX(e.changedTouches[0].clientX);
   };
   // const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
