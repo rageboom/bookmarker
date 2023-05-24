@@ -46,6 +46,7 @@ function Swiper({ children }: SwiperProps) {
   const cIdx = useRef(1);
   const tl = children.length;
   const eventType = getEventString(isMobileDevice());
+  const rootEl = document.querySelector(".root") as HTMLElement;
 
   useEffect(() => {
     if (containerRef.current) {
@@ -67,15 +68,15 @@ function Swiper({ children }: SwiperProps) {
   const startDragging = (clientX: number) => {
     startX.current = clientX;
     isDragStart.current = true;
-    document.ondragstart = () => false;
+    rootEl.ondragstart = () => false;
   };
   const cleanup = () => {
     const type = eventType("move");
-    document[type] = null;
+    rootEl[type] = null;
     isDragStart.current = false;
     const maxTransformX = containerWidth.current - wrapperWidth.current;
 
-    document.ondragstart = null;
+    rootEl.ondragstart = null;
     if (currentX.current > 0) {
       setX(0);
     } else if (maxTransformX > currentX.current) {
@@ -95,15 +96,15 @@ function Swiper({ children }: SwiperProps) {
   ) => {
     e.stopPropagation();
     startDragging(e.clientX);
-    document[eventType("move") as MouseEventType] = handleMouseMove;
-    document[eventType("end") as MouseEventType] = handleMouseUp;
+    rootEl[eventType("move") as MouseEventType] = handleMouseMove;
+    rootEl[eventType("end") as MouseEventType] = handleMouseUp;
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLUListElement>) => {
     e.stopPropagation();
     startDragging(e.changedTouches[0].clientX);
-    document[eventType("move") as TouchEventType] = handleTouchMove;
-    document[eventType("end") as TouchEventType] = handleTouchEnd;
+    rootEl[eventType("move") as TouchEventType] = handleTouchMove;
+    rootEl[eventType("end") as TouchEventType] = handleTouchEnd;
   };
   const handleTouchEnd = (e: TouchEvent) => {
     e.stopPropagation();
