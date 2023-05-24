@@ -97,14 +97,17 @@ function Swiper({ children }: SwiperProps) {
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLUListElement>) => {
+    document.body.style.overflow = "hidden";
     startDragging(e.changedTouches[0].clientX);
     document[eventType("move") as TouchEventType] = handleTouchMove;
     document[eventType("end") as TouchEventType] = handleTouchEnd;
   };
   const handleTouchEnd = (e: TouchEvent) => {
+    document.body.style.removeProperty("overflow");
     cleanup();
   };
   const handleTouchMove = (e: TouchEvent) => {
+    e.preventDefault;
     transformX(e.changedTouches[0].clientX);
   };
   // const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
