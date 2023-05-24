@@ -83,25 +83,30 @@ function Swiper({ children }: SwiperProps) {
     }
   };
   const handleMouseMove = (e: MouseEvent) => {
+    e.stopPropagation();
     transformX(e.clientX);
   };
   const handleMouseUp = (e: MouseEvent) => {
+    e.stopPropagation();
     cleanup();
   };
   const handleMouseDown = (
     e: React.MouseEvent<HTMLUListElement, MouseEvent>
   ) => {
+    e.stopPropagation();
     startDragging(e.clientX);
     document[eventType("move") as MouseEventType] = handleMouseMove;
     document[eventType("end") as MouseEventType] = handleMouseUp;
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLUListElement>) => {
+    e.stopPropagation();
     startDragging(e.changedTouches[0].clientX);
     document[eventType("move") as TouchEventType] = handleTouchMove;
     document[eventType("end") as TouchEventType] = handleTouchEnd;
   };
   const handleTouchEnd = (e: TouchEvent) => {
+    e.stopPropagation();
     cleanup();
   };
   const handleTouchMove = (e: TouchEvent) => {
