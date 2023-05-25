@@ -4,7 +4,7 @@
   }
   & .list {
     border-radius: 15px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     background-color: var(--primary-default);
     cursor: pointer;
   }
@@ -12,17 +12,29 @@
     cursor: pointer;
     list-style: none;
     padding: 0;
+    margin: 0;
+
     & li {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-
+      padding: 10px;
+      height: 20px;
       & a {
         display: flex;
         gap: 10px;
         padding-left: 10px;
         color: var(--text-primary);
         text-decoration: none;
+        & .favicon {
+          box-sizing: border-box;
+          width: 20px;
+          height: 20px;
+        }
+        & .name:hover {
+          color: var(--primary-emphasis);
+          border-bottom: 2px solid var(--primary-emphasis);
+        }
       }
     }
   }

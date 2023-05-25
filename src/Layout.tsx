@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Swiper from "./components/swiper";
+import Swiper, { Content } from "./components/swiper";
 import Modal from "./components/modal";
 import Category from "./components/category";
 import { useRecoilState } from "recoil";
@@ -55,24 +55,27 @@ function Layout() {
           </div>
           <div className="boards-container">
             <Swiper>
-              {boards.map((board) => (
-                <li id={board.id} onClick={handleBoardClick}>
-                  <div>{board.title}</div>
-                  <div>{board.desc}</div>
-                </li>
+              {boards.map((board, index) => (
+                <Content
+                  board={board}
+                  clickContent={handleBoardClick}
+                ></Content>
               ))}
             </Swiper>
           </div>
           <div className="category-container">
             {currentBoardCategories
               .map((categories) => categories)
-              .map((category) => (
-                <Category categoryName={category.name}>
-                  {category.list.map((categoryItem) => (
-                    <li key={categoryItem.id}>
+              .map((category, index) => (
+                <Category key={index} categoryName={category.name}>
+                  {category.list.map((categoryItem, index) => (
+                    <li key={categoryItem.id + index}>
                       <a href={categoryItem.href} target="_blank">
-                        <img src={`${categoryItem.href}/favicon.ico`} />
-                        <div>{categoryItem.name}</div>
+                        <img
+                          className="favicon"
+                          src={`${categoryItem.href}/favicon.ico`}
+                        />
+                        <div className="name">{categoryItem.name}</div>
                       </a>
                     </li>
                   ))}

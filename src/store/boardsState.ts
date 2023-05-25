@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-interface IBoardState {
+export interface IBoardState {
   id: string;
   title: string;
   desc?: string;

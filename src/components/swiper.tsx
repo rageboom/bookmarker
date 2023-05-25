@@ -1,4 +1,5 @@
 import { ReactNode, useState, useRef, useEffect } from "react";
+import { IBoardState } from "../store/boardsState";
 import "./swiper.scss";
 interface SwiperProps {
   children: ReactNode[];
@@ -32,6 +33,21 @@ const getEventString = (isMobile: boolean) => {
       }
     };
   }
+};
+
+interface IContent {
+  board: IBoardState;
+  clickContent: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+export const Content = ({ board, clickContent }: IContent) => {
+  return (
+    <li key={board.id} id={board.id} onClick={clickContent}>
+      <div className="content-wrapper">
+        <div className='title'>{board.title}</div>
+        <div className='desc'>{board.desc}</div>
+      </div>
+    </li>
+  );
 };
 
 function Swiper({ children }: SwiperProps) {
