@@ -21,6 +21,7 @@ function Layout() {
   const handleBoardClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
     const targetId = target.getAttribute("id");
+    console.log(target);
 
     if (targetId) {
       setCurrentBoardID(targetId);
