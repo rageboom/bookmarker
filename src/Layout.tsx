@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Swiper, { Content } from "./components/swiper";
 import Modal from "./components/modal";
 import Category from "./components/category";
@@ -18,10 +18,13 @@ function Layout() {
   const hideModal = useHideModal();
   const showModal = useShowModal();
   const currentBoardCategories = categories[currentBoardID];
+  const handleFallback = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = `${window.location.origin}/favicon.ico`;
+    console.log(e);
+  };
   const handleBoardClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    const target = e.target as HTMLElement;
+    const target = e.currentTarget as HTMLElement;
     const targetId = target.getAttribute("id");
-    console.log(target);
 
     if (targetId) {
       setCurrentBoardID(targetId);
@@ -74,7 +77,10 @@ function Layout() {
                       <a href={categoryItem.href} target="_blank">
                         <img
                           className="favicon"
-                          src={`${categoryItem.href}/favicon.ico`}
+                          src={`${
+                            new URL(categoryItem.href).origin
+                          }/favicon.ico`}
+                          onError={handleFallback}
                         />
                         <div className="name">{categoryItem.name}</div>
                       </a>
