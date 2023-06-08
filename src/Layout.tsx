@@ -5,22 +5,18 @@ import Category from "./components/category";
 import { useRecoilState } from "recoil";
 import { boardState } from "./store/boardsState";
 import { categoryState } from "./store/categoryState";
-import { modalState } from "./store/modalState";
-import { useHideModal, useShowModal } from "./hooks/modalHook";
+import { useShowModal } from "./hooks/modalHook";
 import AddBoardForm from "./components/addModalForm";
 
 function Layout() {
   const [currentBoardID, setCurrentBoardID] = useState<string>("1");
 
-  const [modal] = useRecoilState(modalState);
   const [boards] = useRecoilState(boardState);
   const [categories] = useRecoilState(categoryState);
-  const hideModal = useHideModal();
   const showModal = useShowModal();
   const currentBoardCategories = categories[currentBoardID];
   const handleFallback = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = `${window.location.origin}/favicon.ico`;
-    console.log(e);
   };
   const handleBoardClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const target = e.currentTarget as HTMLElement;
@@ -31,12 +27,12 @@ function Layout() {
     }
   };
 
-  const handleAddClick = (e: React.MouseEvent) => {
-    if (modal.show) {
-      hideModal();
-    } else {
-      showModal("보드를 추가하세요.", <AddBoardForm></AddBoardForm>);
-    }
+  const handleAddClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    showModal(
+      "보드를 추가하세요.",
+      <AddBoardForm></AddBoardForm>,
+      e.currentTarget
+    );
   };
 
   return (

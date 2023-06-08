@@ -1,62 +1,101 @@
 .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   &.show {
-    display: block;
+    & .modal-bg {
+      transform: scale(1);
+      animation: show 300ms;
+      width: 100vh;
+      height: 100vh;
+    }
+    & .modal-layout {
+      display: flex;
+    }
   }
   &.hide {
-    display: none;
+    & .modal-bg {
+      transform: scale(0);
+      animation: hide 300ms;
+      width: 100vh;
+      height: 100vh;
+    }
   }
+
   & .modal-bg,
   & .modal-layout {
-    position: fixed;
+    position: absolute;
     z-index: 999;
   }
   & .modal-bg {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(16, 19, 34, 0.9);
+    background-color: white;
   }
   & .modal-layout {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.2rem;
-    background-color: var(--primary-default);
-    width: 100%;
-    max-width: 440px;
+    font-size: 1.3rem;
     box-sizing: border-box;
-    border-radius: 20px;
-    border: 1px solid #25304a;
-    padding: 15px 20px;
-    & > .modal-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      height: 1.2rem;
-      & > .title {
-        width: 100%;
-        text-align: center;
-        padding-left: 1.2rem;
-      }
-      & button {
-        border: none;
-        background: none;
-        outline: 0;
-        cursor: pointer;
-        appearance: none;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-emphasis);
+    & .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      border: none;
+      background: none;
+      outline: 0;
+      cursor: pointer;
+      appearance: none;
+      font-size: inherit;
+      padding: 0;
+      & i {
         font-size: inherit;
-        padding: 0;
-        & i {
-          font-size: inherit;
-          color: var(--text-primary);
-          vertical-align: middle;
+        color: var(--primary-emphasis);
+        vertical-align: middle;
+      }
+    }
+    & .modal-form {
+      & > .modal-title {
+        display: flex;
+        & > .title {
+          width: 100%;
+          text-align: center;
+          font-size: 1.5rem;
+          font-weight: bold;
         }
       }
+      & > .modal-content {
+        min-height: 300px;
+      }
     }
-    & > .modal-content {
-      min-height: 300px;
-    }
+  }
+}
+
+@keyframes show {
+  0% {
+    border-radius: 50%;
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.5);
+    border-radius: 0%;
+  }
+}
+@keyframes hide {
+  0% {
+    transform: scale(1.5);
+    border-radius: 0%;
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+    border-radius: 50%;
   }
 }
